@@ -3,7 +3,7 @@ provenance: bootstrap-skill-0.1.0
 source-answers: [verify-cadence:phase-boundary]
 ---
 # State: 01-bootstrap-smoke-test
-status: review
+status: done
 loop_step: update
 branch: v2
 last_verified: |
@@ -12,10 +12,11 @@ last_verified: |
 
   Prior red run (before file existed), same command:
   FAIL: file missing or content mismatch
-next_action: Owner decides smoke-test cleanup (keep vs. remove), then confirms "bootstrap complete" to close out the bootstrap gate.
+next_action: Owner confirms "bootstrap complete" to close out the bootstrap gate; no other technical step remains.
 blocked_on: Owner sign-off — awaiting explicit "bootstrap complete" per the task's binding GATE rule; not blocked on any technical step.
 agent_log:
   - 2026-07-27 · claude-sonnet-5 · Generated 01-bootstrap-smoke-test.md, ran red (FAIL confirmed), green (file created), gate (PASS confirmed), recorded task-scoped decisions, populated this state file.
+  - 2026-07-27 · claude-sonnet-5 · Owner chose "keep smoke test" cleanup; status set to done; recorded as Decision 10 in 00-environment-decisions.md.
 metrics:
   tool_calls_used: 1 (this task's own read/red/green/gate cycle; excludes prior bootstrap phases)
   gate_runs: 2   gate_failures: 1 (expected red before the file existed — not a real failure)

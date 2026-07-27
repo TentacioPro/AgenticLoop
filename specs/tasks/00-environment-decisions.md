@@ -126,3 +126,14 @@ instruction — the record needs to exist so a resuming session can see the
 bootstrap reached this state, without that record itself constituting the
 sign-off.
 Recorded: 2026-07-27T00:00:00Z
+
+## Decision 10: Smoke-test cleanup
+Chosen: Keep smoke test — `.agenticloop-installed` and the three
+`specs/tasks/01-bootstrap-smoke-test*` files remain in the repo as the first
+recorded task history, rather than being deleted after verification.
+Rejected:
+- Remove smoke test — would leave only the environment scaffolding with no
+  worked example of the six-step loop in practice; rejected in favor of
+  keeping a concrete first instance for future sessions to model.
+Rationale: Owner's direct selection — keep smoke test.
+Recorded: 2026-07-27T00:00:00Z
