@@ -39,3 +39,58 @@ Rationale: Owner instructions across two turns — "For installing python packag
 Deviation note: the deletion of `graphify-out/cache/` required a scoped one-off exception to the `rm -rf` deny rule added in the permissions front-load step; done via a Python `shutil.rmtree` call instead of shell `rm -rf`, per owner's explicit choice ("scoped delete this once") when asked.
 
 Recorded: 2026-07-24T00:00:00Z
+
+## Decision 3: Existing Repo State
+Chosen: Greenfield — this repo (AgenticLoop, the skill's own home) had no root `AGENTS.md`, no `CLAUDE.md`, and no `specs/` directory before this bootstrap session began. No prior AgenticLoop scaffolding had been applied to it as a project.
+Rejected:
+- Brownfield-empty-specs — a `specs/` directory now exists, but only because this session created it; there was no pre-existing empty ledger to build on.
+- Brownfield-partial-methodology — rejected as a category error: this repo containing the methodology's own source/definition (it IS the agentic-loop-bootstrap skill) is not the same as this repo having been bootstrapped. Scaffolding presence, not content presence, is what this question tracks.
+- Brownfield-competing-methodology — no competing methodology is in place here.
+Rationale: Owner confirmed after clarifying discussion — the question characterizes whether *this repo as a target project* had bootstrap scaffolding applied to it already, independent of the fact that its content happens to define the methodology. Owner also directed: for any other repo this skill bootstraps, the existing-repo question (and the rest of the grill) must still be asked normally, one question per turn, to whoever is running it — this meta-repo's special interpretation does not change that mechanism.
+Recorded: 2026-07-24T00:00:00Z
+
+## Decision 4: Primary Stack
+Chosen: Other — this repo is a markdown/OKF/skill-definition bundle (the agentic-loop-bootstrap skill's own source). No application code, no test runner exists in this repo itself.
+Rejected:
+- Python — no Python source lives in this repo (the shared graphify venv is tooling outside the repo, not this repo's stack).
+- TypeScript/Node — no JS/TS source lives in this repo.
+- Mixed — owner's first answer, but on clarification this named *future target projects the skill will be run against* (see note below), not multiple languages actually present in this repo today. "Mixed" would misrepresent this repo's own (empty) stack.
+Rationale: Owner clarified that this repo has no code — it's markdown/OKF/skill files only — so the honest answer for what shapes *this repo's* settings.json/AGENTS.md is "Other."
+Note (informational, not part of this decision): owner's intended target stacks for future bootstrap runs of this skill are React JS/JSX, Node.js, UV Python, Next.js, and React Expo. This does not change this repo's own stack answer; it's context for how the skill should behave when applied elsewhere.
+Recorded: 2026-07-24T00:00:00Z
+
+## Decision 5: Coding Agent Harness
+Chosen: Mixed / multi-agent — more than one coding-agent harness works in this repo across contributors/sessions. AGENTS.md remains the single vendor-neutral source of truth; per-harness pointer files (e.g. CLAUDE.md) are added only as thin pointers, never duplicated content.
+Rejected:
+- claude-code (only) — would understate the actual harness mix; this session alone is Claude Code, but that's not the only harness expected to touch this repo.
+- kimi / openclaw (only) — same issue in the other direction; a single non-Claude-Code harness doesn't match either.
+- unknown — rejected because the owner gave a definite answer; no need to defer.
+Rationale: Owner's direct selection — mixed-multi-agent.
+Recorded: 2026-07-27T00:00:00Z
+
+## Decision 6: Threat Model
+Chosen: Solo public repo — one person commits/decides, but the repo itself is public, so secrets/CI exposure and anything an anonymous visitor could trigger must be treated more carefully than a purely local repo, even though no outside contributions are accepted (yet).
+Rejected:
+- solo-local — would understate exposure; this repo is public, not local-only.
+- small-team — overstates the actual contributor set; still just the owner deciding/committing.
+- public-with-contributors — overstates current state; no outside PRs are being accepted yet, so the tightest untrusted-contributor profile isn't warranted yet.
+Rationale: Owner's direct selection — solo-public-repo.
+Recorded: 2026-07-27T00:00:00Z
+
+## Decision 7: Verification Cadence
+Chosen: Phase boundary — the owner inspects/verifies at each phase boundary (e.g. end of context-scan, end of grill, end of tailor, end of verify) rather than at every single merge or only rarely.
+Rejected:
+- every-merge — higher scrutiny than requested; would slow throughput beyond what the owner wants.
+- weekly — too coarse a cadence for a bootstrap session with several distinct phases inside a single sitting.
+- rare — too little scrutiny; owner has been actively steering each phase (grill, permissions, graph tooling) rather than trusting the loop to self-certify.
+Rationale: Owner's direct selection — phase-boundary.
+Recorded: 2026-07-27T00:00:00Z
+
+## Decision 8: Optional Grill Questions (CI system, testing baseline, deploy target)
+Chosen: Skip all three optional questions and proceed straight to Phase 2 (Tailor). Marked not-applicable rather than answered.
+Rejected:
+- Answering CI system — no CI is configured or needed; this repo has no code to build/run.
+- Answering existing testing baseline — no test runner exists in this repo (per Decision 4, stack = Other); there is nothing to baseline.
+- Answering deploy target — this repo is not deployed; it's a methodology/skill source bundle, not an application.
+Rationale: Owner's direct selection — skip, given the repo's stack is "Other" (markdown/skill-definition only, no application code).
+Recorded: 2026-07-27T00:00:00Z
