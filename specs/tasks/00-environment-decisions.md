@@ -94,3 +94,35 @@ Rejected:
 - Answering deploy target — this repo is not deployed; it's a methodology/skill source bundle, not an application.
 Rationale: Owner's direct selection — skip, given the repo's stack is "Other" (markdown/skill-definition only, no application code).
 Recorded: 2026-07-27T00:00:00Z
+
+## Decision 9: Bootstrap landing (pending owner confirmation)
+Chosen: All four bootstrap phases (Context Scan, Grill, Tailor, Verify) have
+run to completion on branch `v2`. Landing commit for the Verify-phase smoke
+test: `6abe8a6` ("Bootstrap v2: Verify phase - smoke test task through
+six-step loop"). Prior landing commits: `bfc6eae` (branch + decisions log
+start), `e0d91d5` (graphify knowledge graph build), `379539c` (Tailor-phase
+artifacts).
+
+Artifacts emitted across the bootstrap:
+- `AGENTS.md`, `CLAUDE.md` (root)
+- `.claude/settings.json`, `.claude/settings.rationale.md`
+- `graphify-out/graph.json`, `graphify-out/GRAPH_REPORT.md`, `.gitignore` (graphify cache policy)
+- `specs/tasks/00-spec-system.md`
+- `specs/tasks/00-environment-decisions.md` (this file)
+- `specs/tasks/TEMPLATE-task.md`, `specs/tasks/TEMPLATE-state.md`
+- `specs/tasks/01-bootstrap-smoke-test.md`, `01-bootstrap-smoke-test-decisions.md`, `01-bootstrap-smoke-test.state.md`
+- `.agenticloop-installed` (smoke-test artifact, cleanup choice pending)
+
+Deferred questions: none — optional grill questions (CI/testing/deploy) were
+explicitly skipped as not-applicable (Decision 8), not deferred as unresolved.
+
+Rejected:
+- Declaring "bootstrap complete" unilaterally at this point — rejected per
+  the owner's explicit binding instruction: "Do not declare done... I will
+  say bootstrap complete." This entry records that the mechanical bootstrap
+  work is finished and gated for review, not that it is closed.
+Rationale: Phase-boundary verify cadence (Decision 7) + explicit owner GATE
+instruction — the record needs to exist so a resuming session can see the
+bootstrap reached this state, without that record itself constituting the
+sign-off.
+Recorded: 2026-07-27T00:00:00Z
