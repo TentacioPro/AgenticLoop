@@ -137,3 +137,47 @@ Rejected:
   keeping a concrete first instance for future sessions to model.
 Rationale: Owner's direct selection — keep smoke test.
 Recorded: 2026-07-27T00:00:00Z
+
+## Decision 11: Branch restructure for npx-packaging (pending owner's manual GitHub action)
+Chosen: In preparation for packaging `agentic-loop-bootstrap` for
+`npx skills add` (the `vercel-labs/skills` third-party CLI), restructure
+branches without touching the in-progress v2 bootstrap:
+- Rename `main` → `starter` (pure ref rename, no commits/history/config lost).
+  **Local rename completed** (`git branch -m main starter`).
+- Leave `v2` completely untouched — it continues as the active bootstrap
+  branch; this decision and its commit land on `v2`.
+- Interim default branch on GitHub: `v2` (not `starter`), so `git clone` /
+  `npx skills add owner/repo` traffic lands on the actively-developed branch
+  rather than a frozen pre-bootstrap snapshot, until a new `main` is cut from
+  `v2` post-bootstrap-complete.
+- **Remote rename (GitHub) and default-branch change are NOT yet done** —
+  `gh` is authenticated as an account (`abishekMClubits`) with pull-only
+  access to this repo (no push/admin), so `gh api .../branches/main/rename`
+  returned `403 Must have admin access`. Owner chose to perform the GitHub
+  side manually (their own admin-authenticated session) rather than switch
+  `gh` auth in this session. This entry records the decision and the local
+  half of it; a follow-up entry will confirm once the owner completes the
+  remote rename + default-branch change.
+
+Rejected:
+- Keep `starter` as the interim default branch — would leave clone/npx
+  traffic pointed at a frozen pre-bootstrap snapshot instead of the
+  actively-developed `v2`.
+- Defer the `main`→`starter` rename entirely until the new `main` (from `v2`)
+  is ready — rejected because renaming now vs. later doesn't change
+  history-preservation either way, so there's no reason to delay it.
+- Switch `gh` CLI auth to an admin-capable account in this session — owner
+  preferred to do the GitHub-side rename/default-branch change manually
+  themselves rather than have the agent switch credentials.
+- Actually performing the `SKILL.md` rename, frontmatter fix, and link
+  updates now — explicitly deferred to a future session, only after the
+  owner says "bootstrap complete" for v2's own bootstrap (Decision 9/Task
+  "Hold at gate" is still open and unresolved).
+
+Rationale: Owner's explicit direction — keep the npx-packaging fix out of
+the in-flight v2 bootstrap; restructure branches now so `starter` preserves
+the pre-bootstrap snapshot and `v2` stays the active line; do the actual
+`SKILL.md`/frontmatter/link work later on a new `main` cut from `v2`. When
+`gh api` rejected the remote rename for lack of admin rights, owner chose to
+handle that step manually rather than reauthenticate `gh` in this session.
+Recorded: 2026-07-28T00:00:00Z
