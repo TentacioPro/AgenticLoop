@@ -86,3 +86,14 @@ Stop and ask the owner if, and only if, one of these is true:
 See `skills/agentic-loop-bootstrap/memory/failure-modes.md` for the catalog
 of known failure modes this methodology guards against (if present in this
 checkout — it ships with the `agentic-loop-bootstrap` skill itself).
+
+## 9. AgenticRAG compatibility (corpus chunking contract)
+This repo's markdown corpus (specs, tasks, decisions, state, and the OKF
+bundle itself) is chunked and schema-mapped per
+`docs/agentic-rag-compatibility.md`, so a future real vector+graph DB
+backend can ingest it without redesigning the corpus. This is a
+compatibility contract only — it does not change how any file is written
+today, and no vector/graph DB is installed by it. See
+`docs/adlc-readiness-roadmap.md` for the full roadmap this belongs to
+(Phase A, done; `v3` is where real implementation happens, not yet
+scheduled).

@@ -34,7 +34,9 @@ fresh by a post-commit hook (see Decision 2 in
 `specs/tasks/00-environment-decisions.md`) and answers "what governs X" /
 "what depends on Y" faster and more reliably than an unstructured grep sweep.
 Fall back to grep only for things the graph doesn't model (exact string
-matches, one-off greenfield files not yet committed).
+matches, one-off greenfield files not yet committed). The corpus's chunking
+and schema-mapping contract, for compatibility with a future real
+vector+graph DB backend, is `docs/agentic-rag-compatibility.md`.
 
 ## Contract-boundary rule
 This is **repo A of 2**. Its sibling repo is `<SIBLING_REPO>` (TODO — fill in

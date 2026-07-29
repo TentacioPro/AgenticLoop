@@ -181,3 +181,38 @@ the pre-bootstrap snapshot and `v2` stays the active line; do the actual
 `gh api` rejected the remote rename for lack of admin rights, owner chose to
 handle that step manually rather than reauthenticate `gh` in this session.
 Recorded: 2026-07-28T00:00:00Z
+
+## Decision 12: AgenticRAG compatibility readiness (chunking + schema mapping, v2-scoped)
+Chosen: Add `docs/agentic-rag-compatibility.md` — a chunking strategy and
+node/edge schema mapping for this repo's existing markdown corpus (decisions
+log, OKF single-concept files, state files, task specs), so a future real
+hybrid vector-DB + graph-DB backend can ingest the corpus without
+redesigning it. Scoped to `v2`, executed now. Pointer updates added to
+`specs/tasks/00-spec-system.md` §9 and `AGENTS.md`'s graph-before-grep rule.
+The broader packaging roadmap (worktree primitives, zone-scoped adoption,
+host-repo generalization, cross-session handoff, positioning) is recorded
+separately in `docs/adlc-readiness-roadmap.md`, gated on "bootstrap
+complete" plus the already-deferred npx-filename fix.
+
+Rejected:
+- Building the real vector DB + graph DB now — owner explicitly deferred
+  this to a future, not-yet-scheduled branch `v3`; this decision covers
+  compatibility readiness only, not implementation.
+- Upgrading `graphify`'s current runtime behavior as part of this decision —
+  its node/edge extraction and `graphify-out/graph.json` output are
+  unchanged; this decision only documents why that extraction is already
+  compatible with the schema mapping.
+- Inventing new metadata fields for the schema mapping — rejected in favor
+  of reusing existing OKF frontmatter (`type`, `title`, `provenance`,
+  `source-answers`) and existing markdown links, so the corpus itself needs
+  no rewriting.
+
+Rationale: Owner's direct instruction, grounded in `Agentic_RAG_Insights.md`
+(a write-up of Stephen Chin/Neo4j's "CrabRAG" talk on graph memory vs.
+context-stuffing): *"real vector DB combined with a graph db to convert the
+existing md files pushed in proper chunks into the graph db and can be used
+for traversal. (not right now, but if I wanted to, it should be compatible
+enough to make such operations.)"* Owner further scoped: "Current v2 needs
+only adoption for this AgenticRAG. for v3 (new branch), we would need to
+test locally with AgenticRAG setup."
+Recorded: 2026-07-29T00:00:00Z
