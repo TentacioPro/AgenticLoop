@@ -48,3 +48,22 @@ add their own lessons back to this file.
 Additions to this file are welcome. Preserve the append-only convention —
 add to a "Lessons added by adopters" section at the bottom rather than
 editing existing lessons.
+
+## Lessons added by adopters
+
+### 2026-08-13 — branch-level context switching has no methodology support
+Applying this ideology to a real org codebase (adopter's own forks,
+maintained locally, separate from this repo) surfaced a gap not caught by
+the original bootstrap-skill validation: switching between branches mid-work
+had **no available context** — nothing surfaced what a given branch was for,
+what state it was in, or what the org's own conventions for maintaining
+branches were. Compounding it, the same codebase carried **multiple
+branches at different, simultaneous states of completion/incompletion**,
+and the methodology had no notion of that at all — every artifact assumed a
+single current state, not several coexisting ones. Handled for the day with
+manual, ad hoc prompting; no repeatable mechanism existed to fall back on.
+Tracked as [Phase B1 in the readiness roadmap](../../../docs/adlc-readiness-roadmap.md)
+(branch/worktree context delivery), prioritized ahead of the originally
+broader worktree-concurrency phase it was carved out of, since this is the
+one roadmap item validated by an actual failure rather than an absence
+found by grep.

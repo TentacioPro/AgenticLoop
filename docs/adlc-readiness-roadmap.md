@@ -48,6 +48,22 @@ roadmap-only, not yet scheduled.
    cross-session handoff, positioning) is a longer roadmap (Phases B–F)
    gated on the owner's "bootstrap complete" sign-off plus the
    already-deferred npx-filename fix landing on a new `main`.
+6. **First real-use hit, outside this repo** (2026-08-13, not gated on
+   Gate 0 — happened live): the owner applied AgenticLoop ideology to an
+   *org* codebase (their own forks, maintained locally under a separate
+   root-level git, not this repo) and hit a gap Phase B as originally
+   scoped doesn't cover: switching branch-level context mid-work had
+   **no available context**, no way to *dynamically* surface a branch's
+   purpose or the org's own branch-maintenance conventions, and no
+   handling for **the same codebase carrying multiple branches at
+   different, simultaneous states of completion/incompletion**. Handled
+   manually (ad hoc prompting) for the day — see the adopter entry in
+   `memory/lessons-from-real-use.md`. That gap is now split out as
+   **Phase B1** below and moved to the front of the B–F queue: it's the
+   only item in this roadmap validated by an actual outside-repo failure
+   rather than a repo-wide grep for absence, so it outranks the
+   still-hypothetical concurrency-claim mechanism it was originally bundled
+   with.
 
 ## Context
 The overall goal: AgenticLoop installable via one `npx skills add` command,
@@ -167,8 +183,43 @@ phases below.
    `v2` (rename `skill.md`→`SKILL.md`, add `name:`/`description:`
    frontmatter, fix ~7 cross-reference links, update README quick-start).
 
-## Phase B — Worktree-Native Concurrency Primitives
+## Phase B — Worktree- and Branch-Native Primitives
+Split into two sub-phases, **B1 ahead of B2** in priority — B1 is the one
+item in this roadmap backed by an actual outside-repo failure (2026-08-13,
+see item 6 above and the adopter entry in `memory/lessons-from-real-use.md`)
+rather than a repo-wide grep for absence. Both remain gated behind Gate 0
+like the rest of Phases B–F; the reordering only affects which lands first
+once the gate opens.
+
+### Phase B1 — Branch/Worktree Context Delivery **(elevated priority)**
+**Closes:** no available context on branch-level context switch; no
+mechanism to *dynamically* surface a branch's purpose, completion state,
+or the host org's own branch-maintenance conventions; no handling for one
+codebase carrying several branches at different, simultaneous states of
+completion at once.
+- `artifacts/branch-briefing.md` — a per-branch/worktree context capsule:
+  what this branch is for, its current completion state (pointers into
+  `specs/tasks/*.state.md`, not a restated summary), and the org's branch
+  conventions (naming scheme, protected branches, merge target, review
+  requirements, stale-branch policy). Written once per branch, updated at
+  loop-step boundaries alongside the state file it points to.
+- `questions/org-branch-conventions.md` — a grill question, asked once per
+  *host* repo (not per branch), capturing the org's own branching policy so
+  it doesn't have to be re-derived or re-asked on every switch.
+- `phases/00-context-scan.md` extension — on branch/worktree switch,
+  surface the matching `branch-briefing.md` before any other action, the
+  same way context-scan already runs before Phase 1 today.
+- `TEMPLATE-state.md`'s existing `branch:` field gets a documented
+  resolution rule: it MUST resolve to a `branch-briefing.md`, not just name
+  the git branch string.
+- `memory/failure-modes.md` — new entry: branch switched with no briefing
+  present (the exact failure hit on 2026-08-13, handled by ad hoc manual
+  prompting instead of methodology support).
+
+### Phase B2 — Worktree-Native Concurrency Primitives
 **Closes:** the confirmed-absent mechanism for concurrent agents/worktrees.
+(Repo-wide-grep-confirmed absence, not yet hit in real use — see the
+priority note above.)
 - `principles/worktree-isolation.md` — one branch + one worktree per
   task/agent, sharing the single `.git` object store; agents are *assigned*
   a worktree, never permanently own one.
@@ -220,7 +271,11 @@ developer" — graph (semantic) + `agent_log:` (episodic) convergence.
   before/after.
 - **v3:** a fresh session, given only the real vector+graph DB, correctly
   answers a multi-hop question, compared against graphify's current answer.
-- **Phase B:** two worktrees attempt the same task; second detects the live
+- **Phase B1:** switch branch/worktree on a repo with two branches at
+  different completion states; the correct `branch-briefing.md` (not the
+  other branch's) surfaces before any other action, including the org's
+  branch conventions.
+- **Phase B2:** two worktrees attempt the same task; second detects the live
   claim.
 - **Phase C:** context-scan against a synthetic multi-manifest monorepo
   fixture correctly flags zone candidates.
