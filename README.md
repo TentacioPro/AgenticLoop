@@ -45,6 +45,14 @@ contributing what you learn back to
 [`skills/agentic-loop-bootstrap/memory/lessons-from-real-use.md`](skills/agentic-loop-bootstrap/memory/lessons-from-real-use.md).
 Treat this as an honest v0.1, not a finished framework.
 
+## Current status
+
+Where things stand is in [`CONTEXT.md`](CONTEXT.md), open work in [`TODO.md`](TODO.md). The harness is being tested, not
+just described: [`docs/validation-plan.md`](docs/validation-plan.md) sets a context budget and a comparison against a plain
+CONTEXT/TODO/README setup, and `sh scripts/thinness.sh` measures how much a session must read before starting.
+First baseline (2026-09-24): the router is thin, but the mandatory read path is about 29 KB, over the 10 KB target, mostly
+because of the append-only decisions log. Fixing that comes first.
+
 ## Quick start
 
 The methodology ships as an [OKF](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md)
@@ -69,7 +77,10 @@ with YAML frontmatter that any agent harness can read.
 ## Structure
 
 ```
+CONTEXT.md, TODO.md                   current state and open work
 docs/methodology-reference.md         the full methodology writeup
+docs/validation-plan.md               how to test the harness, thinness budget
+scripts/thinness.sh                   measures the mandatory read path
 skills/agentic-loop-bootstrap/        the OKF v0.1 bootstrap skill bundle
   skill.md                            entry point + trigger contract
   phases/                             the four-phase bootstrap flow
