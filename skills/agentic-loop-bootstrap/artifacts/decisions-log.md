@@ -25,3 +25,14 @@ final "Decisions #N+1: initial bootstrap complete" record with:
 - Every entry: title, chosen, rejected (with one-line reason each), rationale,
   timestamp.
 - Corrections are new entries referencing the old number, never edits.
+
+## Pairing with CURRENT_DECISIONS.md
+This ledger is never read in full every session — only
+[`CURRENT_DECISIONS.md`](current-decisions.md) is. Every time an entry is
+appended here, in the same step decide whether it still constrains future
+work: if yes, add its one-line summary to `CURRENT_DECISIONS.md`; if it's
+a one-off or already superseded, leave that file alone. A ledger that grows
+without its short view being kept current is exactly how the mandatory
+read path grows unbounded — see `docs/validation-plan.md` §1's thinness
+budget for why this matters at token-budget scale, not just for
+readability.

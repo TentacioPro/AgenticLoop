@@ -93,6 +93,24 @@ the highest-capability tier available; mechanical red→green work
 touching security or data migration is never routed by price alone — a
 cheap model's silent mistake there costs more than the tokens it saved.
 
+**Context budget, as an observed heuristic, not a vendor spec (numbers
+drift as context windows grow — recheck against current limits, but the
+shape holds):** quality degrades gradually well before a context window
+is technically full, not as a cliff at the limit. A working range from
+real sessions: compact or start a fresh session around **120k-150k
+tokens** of accumulated context for the best output quality; extending a
+single session to **300k-400k** is acceptable only for a loop that is
+genuinely one continuous unit of work (a long multi-file migration, a
+deep debugging chain) where splitting it would lose more from re-deriving
+context than it gains from a fresh window — treat that as the exception
+that needs a reason, not the default. This is exactly why state lives in
+the repo (§5) and not in the session: a session compacted or restarted at
+the 120k-150k mark loses nothing, because the state file and decisions
+ledger — not the conversation — are what the next session resumes from.
+A session that dreads compacting because context would be lost is a sign
+the state-in-repo discipline has slipped, not a reason to push the
+window further.
+
 ## 4. The task spec template
 
 Every task is written as a spec **before** any code, using this shape:
@@ -156,7 +174,13 @@ agent_log: <one line per session: date, which agent, what moved>
 Rule: **all state lives in the repo as committed markdown.** No
 agent-local memory, no chat scrollback, no IDE-only state is ever
 load-bearing. If an agent's context vanishes mid-task, the next agent (or
-the same one tomorrow) must be able to resume from the repo alone.
+the same one tomorrow) must be able to resume from the repo alone. Once
+more than one agent writes state concurrently, "the repo" needs one more
+rule to stay trustworthy: a shared append-only file (a decisions ledger, a
+task index) gets one shard per writer, never one file several writers
+append to directly, with any "current view" generated from the shards
+rather than hand-edited — see the readiness roadmap's Phase B2b for the
+concrete shape.
 
 Switching agents or resuming after a gap: read the entry point file, then
 the task spec, then the state file, then re-run `last_verified` yourself

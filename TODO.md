@@ -8,8 +8,12 @@ description: Live task list for validating and slimming the harness. Last update
 Legend: `[ ]` open, `[x]` done, `[~]` blocked on owner input. Context: [`CONTEXT.md`](CONTEXT.md).
 
 ## Thinness (fix first; cheap, measurable)
-- [ ] Add `CURRENT_DECISIONS.md` (live decisions plus a link to the ledger) and point the router at it. Re-run
-      `sh scripts/thinness.sh`; target mandatory read path <= 10 KB (now ~29 KB).
+- [x] Added `CURRENT_DECISIONS.md` (live decisions plus a link to the ledger) and pointed the router at it (`AGENTS.md` #2,
+      `00-spec-system.md` §5). Re-measured: mandatory read path 29 KB → 15 KB (~7.3k → ~3.8k tokens). T4 (append-only log
+      never in the read path) now passes. T2 (<= 10 KB) still not met — the remaining weight is `00-spec-system.md` itself
+      (6.2 KB, 110 lines), which is real non-negotiable-process content; trimming it is a separate, more careful edit, not
+      done here. See `specs/tasks/00-spec-system.md` §5 for the maintenance rule: whoever appends a ledger decision also
+      updates (or explicitly skips updating) `CURRENT_DECISIONS.md` in the same commit, so the two files can't silently drift.
 - [ ] Decide the rule for the workspace-root install (674-line log): archive superseded decisions, keep the current view short.
 - [ ] Define risk tiers (`micro`, `standard`, `high-risk`) so a typo fix does not need the full loop.
 - [ ] Give each always-read file a size cap and a last-verified date.

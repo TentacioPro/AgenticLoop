@@ -50,8 +50,9 @@ Treat this as an honest v0.1, not a finished framework.
 Where things stand is in [`CONTEXT.md`](CONTEXT.md), open work in [`TODO.md`](TODO.md). The harness is being tested, not
 just described: [`docs/validation-plan.md`](docs/validation-plan.md) sets a context budget and a comparison against a plain
 CONTEXT/TODO/README setup, and `sh scripts/thinness.sh` measures how much a session must read before starting.
-First baseline (2026-09-24): the router is thin, but the mandatory read path is about 29 KB, over the 10 KB target, mostly
-because of the append-only decisions log. Fixing that comes first.
+First baseline (2026-09-24): the router is thin, but the mandatory read path was about 29 KB, over the 10 KB target, mostly
+because of the append-only decisions log. Fix landed (2026-09-27): a short `CURRENT_DECISIONS.md` live view, ledger read
+only on demand — read path is now ~15 KB. Still over the 10 KB target; see `TODO.md` Thinness for what's left.
 
 ## Quick start
 

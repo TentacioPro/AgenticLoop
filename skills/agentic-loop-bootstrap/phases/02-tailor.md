@@ -19,8 +19,11 @@ Emit the methodology's core artifacts, each tailored to the answers.
    definition, project-agnostic.
 5. [specs/tasks/00-environment-decisions.md](../artifacts/decisions-log.md) —
    already populated by Phase 1; final section added here.
-6. [specs/tasks/TEMPLATE-task.md](../artifacts/task-spec.md) — the template.
-7. [specs/tasks/TEMPLATE-state.md](../artifacts/state-file.md) — the state template.
+6. [specs/tasks/CURRENT_DECISIONS.md](../artifacts/current-decisions.md) —
+   one line per decision from step 5, generated immediately after it. This
+   is the file `AGENTS.md` (step 1) actually points sessions at.
+7. [specs/tasks/TEMPLATE-task.md](../artifacts/task-spec.md) — the template.
+8. [specs/tasks/TEMPLATE-state.md](../artifacts/state-file.md) — the state template.
 
 ## Rules
 - Every file's frontmatter includes `provenance: bootstrap-skill-0.1.0` and
@@ -32,4 +35,4 @@ Emit the methodology's core artifacts, each tailored to the answers.
   before writing.
 
 ## Exit
-When all 7 files are written, invoke [Phase 3: Verify](03-verify.md).
+When all 8 files are written, invoke [Phase 3: Verify](03-verify.md).

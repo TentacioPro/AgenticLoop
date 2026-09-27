@@ -19,7 +19,7 @@ knows what to do. Vendor-neutral by construction.
 You are working in <PROJECT_NAME>. Before any tool call:
 
 1. Read `specs/tasks/00-spec-system.md` — the process, non-negotiable.
-2. Read `specs/tasks/00-environment-decisions.md` — the settled choices.
+2. Read `specs/tasks/CURRENT_DECISIONS.md` — the settled choices, short view. Read the full append-only ledger (`00-environment-decisions.md`) only when you need a decision's rejected alternatives or exact rationale, not every session.
 3. Find your task's state file: `specs/tasks/<NN>-<name>.state.md`.
 4. Follow the six-step loop: read → red → green → gate → record → update.
 5. Work ONLY inside your task's FILE SCOPE.

@@ -30,7 +30,8 @@ Runs a four-phase bootstrap:
    ONE at a time, each with options. Never bulk-dump.
 3. **[Tailor](phases/02-tailor.md)** — generate AGENTS.md, CLAUDE.md,
    .claude/settings.json, specs/tasks/00-spec-system.md,
-   specs/tasks/00-environment-decisions.md — each tailored to the answers.
+   specs/tasks/00-environment-decisions.md,
+   specs/tasks/CURRENT_DECISIONS.md — each tailored to the answers.
 4. **[Verify](phases/03-verify.md)** — run a minimal proof (write a throwaway
    task spec, follow the six-step loop for it, confirm the setup works
    end-to-end before declaring done).
@@ -43,7 +44,10 @@ Runs a four-phase bootstrap:
 2. **Every answer is a [decision](principles/append-only.md).** The moment the
    user answers, the choice + rejected alternatives + rationale get appended
    to `specs/tasks/00-environment-decisions.md`. If the user changes their
-   mind later, that's a new decision — never edit the old one.
+   mind later, that's a new decision — never edit the old one. Its one-line
+   summary also lands in `specs/tasks/CURRENT_DECISIONS.md` (generated in
+   Phase 2) — that short file, not the ledger, is what every session actually
+   reads by default.
 3. **Verify before act.** Before generating any file, read what's already at
    that path. If the file exists and differs from what you'd write, STOP and
    ask — never overwrite silently. This is
@@ -68,9 +72,11 @@ Runs a four-phase bootstrap:
 
 ## Success criteria
 Bootstrap is complete when:
-- All 5 core artifacts exist in the repo (see
+- All 8 core artifacts exist in the repo (see
   [phase 02 tailor](phases/02-tailor.md))
-- `specs/tasks/00-environment-decisions.md` has one entry per answered question
+- `specs/tasks/00-environment-decisions.md` has one entry per answered
+  question, and `specs/tasks/CURRENT_DECISIONS.md` has a matching one-line
+  summary for each
 - The verification pass in [phase 03](phases/03-verify.md) succeeds — a
   throwaway task spec was written, followed the six-step loop, gated green,
   and the state file is populated

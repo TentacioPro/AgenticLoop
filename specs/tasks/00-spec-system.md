@@ -49,6 +49,17 @@ timestamp. Corrections are new numbered entries referencing the old number —
 never an edit in place. See the decisions-log rules baked into that file's
 own header.
 
+`specs/tasks/CURRENT_DECISIONS.md` is the short, always-read view: one line
+per decision still in force, with a pointer to its ledger entry. It is
+**not append-only** — it's a maintained summary, edited to stay short and
+current, never a second copy of the ledger's history. Whoever appends a new
+decision to the ledger also updates (or explicitly decides not to update)
+this file in the same commit: if the new decision still constrains future
+work, add its one-line summary here; if it's already superseded or was a
+one-off, leave this file alone. The ledger stays the only source of truth
+for reasoning and history; this file only ever answers "what applies right
+now," never "why."
+
 ## 6. Escalation rules (not customizable — same in every project)
 Stop and ask the owner if, and only if, one of these is true:
 1. A change would weaken, skip, or delete an existing passing test.

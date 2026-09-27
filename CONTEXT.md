@@ -27,7 +27,7 @@ so that is not evidence they were not used; check transcripts before saying whic
 | D:\ workspace root | none | 7 / 5: 2 done, 1 in progress, 2 blocked | not a git repo | ~12.2k tokens | Worst read path: decisions log 674 lines (42 KB). No version control on the state. |
 | 2026/ABC (UI project) | 2026-09-14 | 4 / 3: 2 done, 1 review | 0 (no commits yet) | ~3.6k tokens | Cleanest and newest. Nested `AgenticLoop` copy inside. |
 | quickyt_backup | none | copy of Quick_yt | not a git repo | ~1.7k tokens | A backup, not a separate use. Exclude from analysis. |
-| cognitive-os / AgenticLoop | 2026-07-27 | 3 / 1 | 12 | ~7.3k tokens | This repo. Fails T2-T4 of the thinness budget. |
+| cognitive-os / AgenticLoop | 2026-07-27 | 3 / 1 | 12 | ~3.8k tokens (was ~7.3k) | This repo. `CURRENT_DECISIONS.md` fix landed (2026-09-27): T4 now passes, T2 still open — see TODO. |
 
 ## Findings from the survey (observations, not conclusions)
 1. **Read path grows with the decisions log.** The router file stays small (16-51 lines) in every install, but the always-read
