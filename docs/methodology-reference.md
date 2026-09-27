@@ -346,3 +346,51 @@ The general pattern: when an external framework independently arrives at
 the same shape as a rule you already learned the hard way, that's
 evidence the rule generalizes past your specific case — worth raising its
 priority, not dismissing as redundant.
+
+## 12. Field notes: several harnesses on the same repos
+
+Recorded from watching this methodology's shape — durable state,
+escalation discipline, verify-before-trust — hold or fail to hold outside
+a single-agent, single-repo setting: several unrelated repos, different
+agent harnesses (chat-based and CLI-based) touching them interchangeably
+over the same days, sometimes with minimal per-session guidance once the
+entry-point files were solid.
+
+- **Cross-harness durability, not just cross-session.** §5 already states
+  no agent-local memory is load-bearing for a task's state; the same
+  holds for policy and preference, and for a wider reason. A rule stored
+  only in one harness's private memory feature (a "remember this" note a
+  single tool keeps for itself) silently stops applying the moment a
+  different harness — or the same harness under a different account —
+  picks up the work, because nothing else can read it. A preference is
+  durable only once it lives in a file every harness's entry point
+  already reads (this repo's `AGENTS.md` is the pattern); anything short
+  of that is convenience, not durability, and should be named as such
+  rather than assumed to travel.
+- **Verify a peer's claim before building on it, the same as your own.**
+  §5's rule that a state file's claim is trusted only after being
+  reproduced applies just as much to a sibling agent's report as to your
+  own prior session's. Re-opening one item a report says it checked —
+  before trusting the rest of it — is cheap, and it catches drift (a
+  stale source, an outdated figure, a since-fixed bug) before it
+  compounds into something built on top of it.
+- **An identifier collision across parallel, unmerged work is a finding,
+  not a merge nuisance.** When two branches produced independently assign
+  the same identifier — a doc number, a task slug, a filename — to two
+  different things, the fix is to resolve the collision explicitly
+  (rename one, keep both, note why) and not to let whichever side merges
+  second silently win. Treat it the way §2 treats a spec contradiction:
+  name it, don't absorb it.
+- **A caveat inside an otherwise-positive report is still a decision
+  point.** The Phase C rule that a deviation is reported, never quietly
+  fixed or normalized, extends past baseline verification: a downstream
+  finding that carries an explicit gap (a threshold narrowly missed, an
+  assumption not yet checked) needs to surface as its own line for the
+  owner to act on, not get smoothed into a summary alongside findings
+  that carry no such caveat.
+
+Same closing pattern as §11: none of this was designed into the
+methodology up front — it surfaced from running the same rules against a
+messier setting (several harnesses, not one) than the one they were first
+written for, and held. That's the signal worth trusting over a rule that
+only ever ran in the tidy case it was designed for.
